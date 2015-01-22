@@ -1,0 +1,30 @@
+require 'rake'
+namespace :docker do
+   #todo add other task
+   desc "build dockerfile in this directory"
+   VERSION = 1.0
+   IMAGES = "nginx_lua"
+   NAME = "nginx_web"
+   task :build do
+      puts "building..."
+      cmd = %Q[docker build -t #{IMAGES}/v#{VERSION} .]
+      system cmd
+      puts "Image #{IMAGES} build finished    [\033[32;49;1m DONE \033[39;49;0m]"
+   end
+
+   desc "Run the nginx with lua server"
+   task :run,[:port] => :build do |t,args|
+       port = args[:port]
+       if port then
+           cmd=%Q[docker run -d -p #{port}:80 --name #{NAME} #{IMAGES}/v#{VERSION}]
+           system cmd
+           local_port=port
+       else
+           cmd=%Q[docker run -d  -P  --name #{NAME} #{IMAGES}/v#{VERSION}]
+           system cmd
+           local_port=%x[docker port ngx_lua 80]
+           puts "local port is #{local_port}"
+       end
+       puts "You can visit this container by curl:  curl http://127.1:#{local_port}/hello"
+   end
+end
