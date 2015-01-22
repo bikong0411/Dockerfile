@@ -25,6 +25,6 @@ This repository contains **Dockerfile** of [Nginx](http://nginx.org/) [lua-nginx
 
 #### Attach persistent/shared directories
 
-    docker run -d -p 80:80 -v <sites-enabled-dir>:/etc/nginx/sites-enabled -v <certs-dir>:/etc/nginx/certs -v <log-dir>:/var/log/nginx -v <html-dir>:/var/www/html dockerfile/nginx
+    docker run -d -p 80:80 -v <sites-enabled-dir>:/etc/nginx/sites-enabled -v <certs-dir>:/etc/nginx/certs -v <log-dir>:/var/log/nginx -v <html-dir>:/var/www/html nginx_lua/v1.0
 
-After few seconds, open `http://<host>` to see the welcome page.
+After few seconds, open `http://<host>/lua?query=xoxo` to see the welcome page.
