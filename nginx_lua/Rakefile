@@ -8,7 +8,7 @@ namespace :docker do
    task :build do
       puts "building..."
       cmd = %Q[docker build -t #{IMAGES}/v#{VERSION} .]
-      system cmd
+      sh cmd
       puts "Image #{IMAGES} build finished    [\033[32;49;1m DONE \033[39;49;0m]"
    end
 
@@ -17,11 +17,11 @@ namespace :docker do
        port = args[:port]
        if port then
            cmd=%Q[docker run -d -p #{port}:80 --name #{NAME} #{IMAGES}/v#{VERSION}]
-           system cmd
+           sh cmd
            local_port=port
        else
            cmd=%Q[docker run -d  -P  --name #{NAME} #{IMAGES}/v#{VERSION}]
-           system cmd
+           sh cmd
            local_port=%x[docker port ngx_lua 80]
            puts "local port is #{local_port}"
        end
