@@ -28,4 +28,5 @@ RUN ln -s /usr/local/nginx-1.4.2 /usr/local/nginx
 COPY conf/nginx.conf /usr/local/nginx/conf/nginx.conf
 
 EXPOSE 80
+ENTRYPOINT ["/usr/local/nginx/sbin/nginx"]
 CMD ["/usr/local/nginx/sbin/nginx"]
